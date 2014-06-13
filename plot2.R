@@ -1,22 +1,14 @@
 
 #import the data
-x <- read.csv('household_power_consumption.txt', sep = ';', na.string = '?');
-
+x <- read.csv('household_power_consumption.txt', skip=66636, nrow=2880, sep = ';', na.string = '?');
+colnames(x) <- colnames( read.csv('household_power_consumption.txt',nrow=1,sep=';') )
 #format the Date
-x$Date <- as.Date(x$Date, format = '%d/%m/%Y');
-
-#subset the data from 2007-02-01 to 2007-02-02
-y <- subset(x, '2007-01-31'< x$Date & x$Date <'2007-02-03');
-
-#formate the Time
-y$Time <- strptime( paste( y$Date, y$Time, sep=' '), format = '%Y-%m-%d %H:%M:%S');
-
+xt <- strptime( paste( x$Date, x$Time ), format = '%d/%m/%Y %H:%M:%S');
 #create the png file
 p1 <- png('plot2.png', width = 480, height = 480);
-
 #make the plot
-p1 <- plot(y$Time,y$Global_active_power,type='l', xlab='',ylab='Global Active Power (kilowatts)');
-
+p1 <- plot(xt,x$Global_active_power,type='l', xlab='',ylab='Global Active Power (kilowatts)');
+#p1 <- axis(2,at = c(0,2,4,6))
 #close the png file
 dev.off()
 
