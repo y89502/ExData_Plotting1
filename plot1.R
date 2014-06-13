@@ -14,5 +14,7 @@ y$Time <- strptime( paste( y$Date, y$Time, sep=' '), format = '%Y-%m-%d %H:%M:%S
 #create the png file
 p1 <- png('plot1.png', width = 480, height = 480);
 p1 <- hist(y$Global_active_power,main = 'Global Active Power', xlab = 'Global Active Power (kilowatts)', col = 'red');
+p1 <- axis(1, at = c(0,2,4,6));
+p1 <- axis(2, at = seq(0,1200,200));
 dev.off()
 
